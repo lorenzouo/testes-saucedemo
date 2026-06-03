@@ -17,10 +17,11 @@ public class LoginTest {
     String usuarioInvalido = "cool_user";
     String senhaInvalida = "secret_apple";
     String seletorErro = "[data-test='error']";
-    String mensagemEsperada = "Epic sadface: Username and password do not match any user in this service";
+    String mensagemUsuarioSenhaInvalidos = "Epic sadface: Username and password do not match any user in this service";
+    String mensagemUsuarioSenhaNulos = "Epic sadface: Username is required";
 
     @Test
-    public void loginSucesso() throws InterruptedException {
+    public void login_credenciaisValidas_sucesso() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com/");
         System.out.println("Título: " + driver.getTitle());
@@ -38,7 +39,7 @@ public class LoginTest {
     }
 
     @Test
-    public void loginInvalido() throws InterruptedException {
+    public void login_credenciaisInvalidas_erroExibido() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com/");
         System.out.println("Título: " + driver.getTitle());
@@ -49,12 +50,83 @@ public class LoginTest {
 
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
-        assertEquals(mensagemEsperada, mensagemAtual);
+        assertEquals(mensagemUsuarioSenhaInvalidos, mensagemAtual);
 
         Thread.sleep(3000);
         driver.quit();
     }
 
+    @Test
+    public void login_usuarioValido_senhaInvalida_erroExibido() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.saucedemo.com/");
+        System.out.println("Título: " + driver.getTitle());
+
+        driver.findElement(By.id("user-name")).sendKeys(usuario);
+        driver.findElement(By.id("password")).sendKeys(senhaInvalida);
+        driver.findElement(By.id("login-button")).click();
+
+        String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
+
+        assertEquals(mensagemUsuarioSenhaInvalidos, mensagemAtual);
+
+        Thread.sleep(3000);
+        driver.quit();
+    }
+
+    @Test
+    public void login_usuarioInvalido_senhaValida_erroExibido() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.saucedemo.com/");
+        System.out.println("Título: " + driver.getTitle());
+
+        driver.findElement(By.id("user-name")).sendKeys(usuarioInvalido);
+        driver.findElement(By.id("password")).sendKeys(senha);
+        driver.findElement(By.id("login-button")).click();
+
+        String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
+
+        assertEquals(mensagemUsuarioSenhaInvalidos, mensagemAtual);
+
+        Thread.sleep(3000);
+        driver.quit();
+    }
+
+    @Test
+    public void login_camposVazios_erroExibido() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.saucedemo.com/");
+        System.out.println("Título: " + driver.getTitle());
+
+        driver.findElement(By.id("user-name")).sendKeys("");
+        driver.findElement(By.id("password")).sendKeys("");
+        driver.findElement(By.id("login-button")).click();
+
+        String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
+
+        assertEquals(mensagemUsuarioSenhaNulos, mensagemAtual);
+
+        Thread.sleep(3000);
+        driver.quit();
+    }
+
+    @Test
+    public void login_usuarioVazio_senhaValida_erroExibido() throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.saucedemo.com/");
+        System.out.println("Título: " + driver.getTitle());
+
+        driver.findElement(By.id("user-name")).sendKeys("");
+        driver.findElement(By.id("password")).sendKeys(senha);
+        driver.findElement(By.id("login-button")).click();
+
+        String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
+
+        assertEquals(mensagemUsuarioSenhaNulos, mensagemAtual);
+
+        Thread.sleep(3000);
+        driver.quit();
+    }
 
 }
 
