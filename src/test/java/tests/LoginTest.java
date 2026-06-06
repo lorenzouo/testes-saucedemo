@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.LoginPage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -24,11 +25,12 @@ public class LoginTest {
     public void login_credenciaisValidas_sucesso() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com/");
+        LoginPage loginPage = new LoginPage(driver);
         System.out.println("Título: " + driver.getTitle());
 
-        driver.findElement(By.id("user-name")).sendKeys(usuario);
-        driver.findElement(By.id("password")).sendKeys(senha);
-        driver.findElement(By.id("login-button")).click();
+        loginPage.inserirUsuario(usuario);
+        loginPage.inserirSenha(senha);
+        loginPage.clicarBotao();
 
         String urlAtual = driver.getCurrentUrl();
 
@@ -42,11 +44,12 @@ public class LoginTest {
     public void login_credenciaisInvalidas_erroExibido() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com/");
+        LoginPage loginPage = new LoginPage(driver);
         System.out.println("Título: " + driver.getTitle());
 
-        driver.findElement(By.id("user-name")).sendKeys(usuarioInvalido);
-        driver.findElement(By.id("password")).sendKeys(senhaInvalida);
-        driver.findElement(By.id("login-button")).click();
+        loginPage.inserirUsuario(usuarioInvalido);
+        loginPage.inserirSenha(senhaInvalida);
+        loginPage.clicarBotao();
 
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
@@ -60,11 +63,12 @@ public class LoginTest {
     public void login_usuarioValido_senhaInvalida_erroExibido() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com/");
+        LoginPage loginPage = new LoginPage(driver);
         System.out.println("Título: " + driver.getTitle());
 
-        driver.findElement(By.id("user-name")).sendKeys(usuario);
-        driver.findElement(By.id("password")).sendKeys(senhaInvalida);
-        driver.findElement(By.id("login-button")).click();
+        loginPage.inserirUsuario(usuario);
+        loginPage.inserirSenha(senhaInvalida);
+        loginPage.clicarBotao();
 
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
@@ -78,11 +82,12 @@ public class LoginTest {
     public void login_usuarioInvalido_senhaValida_erroExibido() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com/");
+        LoginPage loginPage = new LoginPage(driver);
         System.out.println("Título: " + driver.getTitle());
 
-        driver.findElement(By.id("user-name")).sendKeys(usuarioInvalido);
-        driver.findElement(By.id("password")).sendKeys(senha);
-        driver.findElement(By.id("login-button")).click();
+        loginPage.inserirUsuario(usuarioInvalido);
+        loginPage.inserirSenha(senha);
+        loginPage.clicarBotao();
 
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
@@ -96,11 +101,12 @@ public class LoginTest {
     public void login_camposVazios_erroExibido() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com/");
+        LoginPage loginPage = new LoginPage(driver);
         System.out.println("Título: " + driver.getTitle());
 
-        driver.findElement(By.id("user-name")).sendKeys("");
-        driver.findElement(By.id("password")).sendKeys("");
-        driver.findElement(By.id("login-button")).click();
+        loginPage.inserirUsuario("");
+        loginPage.inserirSenha("");
+        loginPage.clicarBotao();
 
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
@@ -114,11 +120,12 @@ public class LoginTest {
     public void login_usuarioVazio_senhaValida_erroExibido() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com/");
+        LoginPage loginPage = new LoginPage(driver);
         System.out.println("Título: " + driver.getTitle());
 
-        driver.findElement(By.id("user-name")).sendKeys("");
-        driver.findElement(By.id("password")).sendKeys(senha);
-        driver.findElement(By.id("login-button")).click();
+        loginPage.inserirUsuario("");
+        loginPage.inserirSenha(senha);
+        loginPage.clicarBotao();
 
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
