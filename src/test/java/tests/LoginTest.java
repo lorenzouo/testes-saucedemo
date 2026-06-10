@@ -1,10 +1,15 @@
 package tests;
-
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import pages.LoginPage;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -32,11 +37,13 @@ public class LoginTest {
         loginPage.inserirSenha(senha);
         loginPage.clicarBotao();
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.urlContains(telaAposLogin));
+
         String urlAtual = driver.getCurrentUrl();
 
         assertEquals(telaAposLogin,urlAtual);
 
-        Thread.sleep(3000);
         driver.quit();
     }
 
@@ -51,11 +58,13 @@ public class LoginTest {
         loginPage.inserirSenha(senhaInvalida);
         loginPage.clicarBotao();
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(seletorErro)));
+
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
         assertEquals(mensagemUsuarioSenhaInvalidos, mensagemAtual);
 
-        Thread.sleep(3000);
         driver.quit();
     }
 
@@ -70,11 +79,13 @@ public class LoginTest {
         loginPage.inserirSenha(senhaInvalida);
         loginPage.clicarBotao();
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(seletorErro)));
+
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
         assertEquals(mensagemUsuarioSenhaInvalidos, mensagemAtual);
 
-        Thread.sleep(3000);
         driver.quit();
     }
 
@@ -89,11 +100,13 @@ public class LoginTest {
         loginPage.inserirSenha(senha);
         loginPage.clicarBotao();
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(seletorErro)));
+
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
         assertEquals(mensagemUsuarioSenhaInvalidos, mensagemAtual);
 
-        Thread.sleep(3000);
         driver.quit();
     }
 
@@ -108,11 +121,13 @@ public class LoginTest {
         loginPage.inserirSenha("");
         loginPage.clicarBotao();
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(seletorErro)));
+
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
         assertEquals(mensagemUsuarioSenhaNulos, mensagemAtual);
 
-        Thread.sleep(3000);
         driver.quit();
     }
 
@@ -127,11 +142,13 @@ public class LoginTest {
         loginPage.inserirSenha(senha);
         loginPage.clicarBotao();
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(seletorErro)));
+
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
         assertEquals(mensagemUsuarioSenhaNulos, mensagemAtual);
 
-        Thread.sleep(3000);
         driver.quit();
     }
 
