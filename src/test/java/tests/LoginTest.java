@@ -1,4 +1,5 @@
 package tests;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
@@ -16,6 +17,16 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class LoginTest {
 
+    WebDriver driver;
+    LoginPage loginPage;
+
+    @BeforeEach
+    public void setup(){
+        driver = new ChromeDriver();
+        driver.get("https://www.saucedemo.com/");
+        loginPage = new LoginPage(driver);
+    }
+
     String usuario = "standard_user";
     String senha = "secret_sauce";
     String telaAposLogin = "https://www.saucedemo.com/inventory.html";
@@ -28,9 +39,6 @@ public class LoginTest {
 
     @Test
     public void login_credenciaisValidas_sucesso() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.saucedemo.com/");
-        LoginPage loginPage = new LoginPage(driver);
         System.out.println("Título: " + driver.getTitle());
 
         loginPage.inserirUsuario(usuario);
@@ -49,9 +57,6 @@ public class LoginTest {
 
     @Test
     public void login_credenciaisInvalidas_erroExibido() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.saucedemo.com/");
-        LoginPage loginPage = new LoginPage(driver);
         System.out.println("Título: " + driver.getTitle());
 
         loginPage.inserirUsuario(usuarioInvalido);
@@ -70,9 +75,6 @@ public class LoginTest {
 
     @Test
     public void login_usuarioValido_senhaInvalida_erroExibido() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.saucedemo.com/");
-        LoginPage loginPage = new LoginPage(driver);
         System.out.println("Título: " + driver.getTitle());
 
         loginPage.inserirUsuario(usuario);
@@ -91,9 +93,6 @@ public class LoginTest {
 
     @Test
     public void login_usuarioInvalido_senhaValida_erroExibido() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.saucedemo.com/");
-        LoginPage loginPage = new LoginPage(driver);
         System.out.println("Título: " + driver.getTitle());
 
         loginPage.inserirUsuario(usuarioInvalido);
@@ -112,9 +111,6 @@ public class LoginTest {
 
     @Test
     public void login_camposVazios_erroExibido() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.saucedemo.com/");
-        LoginPage loginPage = new LoginPage(driver);
         System.out.println("Título: " + driver.getTitle());
 
         loginPage.inserirUsuario("");
@@ -133,9 +129,6 @@ public class LoginTest {
 
     @Test
     public void login_usuarioVazio_senhaValida_erroExibido() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.saucedemo.com/");
-        LoginPage loginPage = new LoginPage(driver);
         System.out.println("Título: " + driver.getTitle());
 
         loginPage.inserirUsuario("");
