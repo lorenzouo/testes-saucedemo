@@ -1,4 +1,4 @@
-# testes-saucedemo
+# test-saucedemo
 
 Web test automation project using Selenium WebDriver and Java on the [SauceDemo](https://www.saucedemo.com/) website.
 
