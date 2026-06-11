@@ -8,30 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import pages.LoginPage;
-
-import java.time.Duration;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class LoginTest {
 
     WebDriver driver;
     LoginPage loginPage;
-
-    @BeforeEach
-    public void setup(){
-        driver = new ChromeDriver();
-        driver.get("https://www.saucedemo.com/");
-        loginPage = new LoginPage(driver);
-    }
-
-    @AfterEach
-            public void teardown(){
-        driver.quit();
-    }
 
     String usuario = "standard_user";
     String senha = "secret_sauce";
@@ -41,6 +24,20 @@ public class LoginTest {
     String seletorErro = "[data-test='error']";
     String mensagemUsuarioSenhaInvalidos = "Epic sadface: Username and password do not match any user in this service";
     String mensagemUsuarioSenhaNulos = "Epic sadface: Username is required";
+
+    @BeforeEach
+    public void setup(){
+        driver = new ChromeDriver();
+        driver.get("https://www.saucedemo.com/");
+        loginPage = new LoginPage(driver);
+    }
+
+    @AfterEach
+    public void teardown(){
+        driver.quit();
+    }
+
+
 
     @Test
     public void login_credenciaisValidas_sucesso() throws InterruptedException {
