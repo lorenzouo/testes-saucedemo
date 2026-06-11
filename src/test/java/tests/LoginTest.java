@@ -1,4 +1,5 @@
 package tests;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -27,10 +28,14 @@ public class LoginTest {
         loginPage = new LoginPage(driver);
     }
 
+    @AfterEach
+            public void teardown(){
+        driver.quit();
+    }
+
     String usuario = "standard_user";
     String senha = "secret_sauce";
     String telaAposLogin = "https://www.saucedemo.com/inventory.html";
-
     String usuarioInvalido = "cool_user";
     String senhaInvalida = "secret_apple";
     String seletorErro = "[data-test='error']";
@@ -51,8 +56,6 @@ public class LoginTest {
         String urlAtual = driver.getCurrentUrl();
 
         assertEquals(telaAposLogin,urlAtual);
-
-        driver.quit();
     }
 
     @Test
@@ -69,8 +72,6 @@ public class LoginTest {
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
         assertEquals(mensagemUsuarioSenhaInvalidos, mensagemAtual);
-
-        driver.quit();
     }
 
     @Test
@@ -87,8 +88,6 @@ public class LoginTest {
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
         assertEquals(mensagemUsuarioSenhaInvalidos, mensagemAtual);
-
-        driver.quit();
     }
 
     @Test
@@ -105,8 +104,6 @@ public class LoginTest {
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
         assertEquals(mensagemUsuarioSenhaInvalidos, mensagemAtual);
-
-        driver.quit();
     }
 
     @Test
@@ -123,8 +120,6 @@ public class LoginTest {
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
         assertEquals(mensagemUsuarioSenhaNulos, mensagemAtual);
-
-        driver.quit();
     }
 
     @Test
@@ -141,8 +136,6 @@ public class LoginTest {
         String mensagemAtual = driver.findElement(By.cssSelector(seletorErro)).getText();
 
         assertEquals(mensagemUsuarioSenhaNulos, mensagemAtual);
-
-        driver.quit();
     }
 
 }
