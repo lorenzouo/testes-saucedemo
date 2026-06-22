@@ -24,7 +24,6 @@ public class InventoryTest {
 
     String usuario = "standard_user";
     String senha = "secret_sauce";
-    String telaAposLogin = "https://www.saucedemo.com/inventory.html";
 
     @BeforeEach
     public void setup(){
@@ -44,31 +43,6 @@ public class InventoryTest {
     }
 
 
-
-    @Test
-    public void adicionarProduto_carrinhoAtualizado() {
-        cartPage.adicionarAoCarrinho();
-
-        String quantidade = cartPage.obterQuantidadeCarrinho();
-
-        assertEquals("1", quantidade);
-    }
-
-    @Test
-    public void removerProduto_carrinhoAtualizado() {
-        cartPage.adicionarAoCarrinho();
-
-        String quantidade = cartPage.obterQuantidadeCarrinho();
-
-        assertEquals("1", quantidade);
-
-        cartPage.removerDoCarrinho();
-
-        boolean carrinhoVazio = driver.findElements(By.className("shopping_cart_badge")).isEmpty();
-
-        assertTrue(carrinhoVazio);
-    }
-
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3, 4, 5, 6})
     public void adicionarProdutos_contadorAtualizado(int quantidade) {
@@ -82,6 +56,27 @@ public class InventoryTest {
 
         assertEquals(String.valueOf(quantidade), quantidadeAtual);
     }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3, 4, 5, 6})
+    public void removerProdutos_contadorAtualizado(int quantidade) {
+        /// adiciona quantidade de produtos
+        List<WebElement> botoesAdd = driver.findElements(By.className("btn_inventory"));
+        for(int i = 0; i < quantidade; i++) {
+            botoesAdd.get(i).click();
+        }
+
+        /// remove todos os produtos
+        List<WebElement> botoesRemove = driver.findElements(By.className("btn_secondary"));
+        for(int i = 0; i < quantidade; i++) {
+            botoesRemove.get(i).click();
+        }
+
+        /// verifica carrinho vazio
+        boolean carrinhoVazio = driver.findElements(By.className("shopping_cart_badge")).isEmpty();
+        assertTrue(carrinhoVazio);
+    }
+
 
 
 
