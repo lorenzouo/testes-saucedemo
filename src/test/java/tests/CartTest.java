@@ -5,10 +5,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.CartPage;
 import pages.CheckoutPage;
 import pages.InventoryPage;
 import pages.LoginPage;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,6 +26,7 @@ public class CartTest {
 
     String usuario = "standard_user";
     String senha = "secret_sauce";
+    String telaCompraSucesso = "https://www.saucedemo.com/checkout-complete.html";
 
     @BeforeEach
     public void setup(){
@@ -42,19 +47,23 @@ public class CartTest {
         driver.quit();
     }
 
+    @Test
+    public void checkout_fluxoCompleto_sucesso(){
+        inventoryPage.adicionarAoCarrinho();
+        cartPage.irParaCarrinho();
+        cartPage.clicarCheckout();
+        checkoutPage.preencherFirtName("Lorenzo");
+        checkoutPage.preencherLastName("Luciano");
+        checkoutPage.preencherZipCode("00000000");
+        checkoutPage.clicarContinue();
+        checkoutPage.clicarFinish();
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.urlContains(telaCompraSucesso));
+        String urlAtual = driver.getCurrentUrl();
 
-
-
-
-
-
-
-
-
-
-
-
+        assertEquals(telaCompraSucesso,urlAtual);
+    }
 
 
 }

@@ -25,4 +25,8 @@ public class CheckoutPage {
     public void clicarContinue(){
         driver.findElement(By.id("continue")).click();
     }
+
+    public void clicarFinish(){
+        driver.findElement(By.id("finish")).click();
+    }
 }
