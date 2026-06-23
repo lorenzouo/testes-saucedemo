@@ -1,4 +1,4 @@
-# test-saucedemo
+# testes-saucedemo
 
 Web test automation project using Selenium WebDriver and Java on the [SauceDemo](https://www.saucedemo.com/) website.
 
@@ -23,7 +23,15 @@ Web test automation project using Selenium WebDriver and Java on the [SauceDemo]
 - Login with empty fields
 - Login with empty username and valid password
 
-## Next tests
-- Shopping cart
-- Checkout
-- Product sorting
+### Inventory
+- Add 1 to 6 products to cart and verify counter (parameterized)
+- Remove 1 to 6 products from cart and verify cart is empty (parameterized)
+
+### Cart & Checkout
+- Complete checkout flow with valid information
+
+## Patterns & Practices
+- Page Object Model
+- WebDriverWait (no Thread.sleep)
+- BeforeEach / AfterEach
+- Parameterized Tests
