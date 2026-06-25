@@ -8,9 +8,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.InventoryPage;
 import pages.LoginPage;
 
+import java.time.Duration;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,16 +25,25 @@ public class InventoryTest {
     WebDriver driver;
     LoginPage loginPage;
     InventoryPage cartPage;
+    InventoryPage inventoryPage;
+
 
     String usuario = "standard_user";
     String senha = "secret_sauce";
+    String telaDetalhesDoProduto = "https://www.saucedemo.com/inventory-item.html?id=4";
+    String telaAposLogin = "https://www.saucedemo.com/inventory.html";
+
 
     @BeforeEach
     public void setup(){
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-notifications");
+        options.addArguments("--password-store=basic");
+        driver = new ChromeDriver(options); // ← só uma vez, sem "WebDriver" na frente
         driver.get("https://www.saucedemo.com/");
         loginPage = new LoginPage(driver);
         cartPage = new InventoryPage(driver);
+        inventoryPage = new InventoryPage(driver);
 
         loginPage.inserirUsuario(usuario);
         loginPage.inserirSenha(senha);
@@ -75,6 +88,22 @@ public class InventoryTest {
         /// verifica carrinho vazio
         boolean carrinhoVazio = driver.findElements(By.className("shopping_cart_badge")).isEmpty();
         assertTrue(carrinhoVazio);
+    }
+
+    @Test
+    public void visualizarDetalhesProdutoEVoltar(){
+        inventoryPage.detalhesDoProduto();
+
+        // espera chegar na página do produto
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.urlContains("inventory-item.html"));
+
+        inventoryPage.voltarAoInventory();
+
+        // espera voltar pro inventário
+        wait.until(ExpectedConditions.urlContains("inventory.html"));
+
+        assertEquals(telaAposLogin, driver.getCurrentUrl());
     }
 
 

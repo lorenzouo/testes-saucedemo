@@ -18,8 +18,12 @@ public class InventoryPage {
         return driver.findElement(By.className("shopping_cart_badge")).getText();
     }
 
-    public void removerDoCarrinho(){
-        driver.findElement(By.id("remove-sauce-labs-backpack")).click();
+    public void detalhesDoProduto(){
+        driver.findElement(By.className("inventory_item_name")).click();
+    }
+
+    public void voltarAoInventory(){
+        driver.findElement(By.id("back-to-products")).click();
     }
 
 
