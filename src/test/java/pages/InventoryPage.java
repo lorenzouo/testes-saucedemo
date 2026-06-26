@@ -26,6 +26,12 @@ public class InventoryPage {
         driver.findElement(By.id("back-to-products")).click();
     }
 
+    public void menu(){
+        driver.findElement(By.id("react-burger-menu-btn")).click();
+    }
 
+    public void logout(){
+        driver.findElement(By.id("logout_sidebar_link")).click();
+    }
 
 }

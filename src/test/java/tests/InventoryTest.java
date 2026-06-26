@@ -32,6 +32,7 @@ public class InventoryTest {
     String senha = "secret_sauce";
     String telaDetalhesDoProduto = "https://www.saucedemo.com/inventory-item.html?id=4";
     String telaAposLogin = "https://www.saucedemo.com/inventory.html";
+    String telaDeLogin = "https://www.saucedemo.com/";
 
 
     @BeforeEach
@@ -105,6 +106,20 @@ public class InventoryTest {
 
         assertEquals(telaAposLogin, driver.getCurrentUrl());
     }
+
+    @Test
+    public void realizarLogout(){
+        inventoryPage.menu();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("logout_sidebar_link")));
+
+        inventoryPage.logout();
+        wait.until(ExpectedConditions.urlContains("saucedemo.com"));
+
+        assertEquals(telaDeLogin, driver.getCurrentUrl());
+
+    }
+
 
 
 

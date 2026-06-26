@@ -38,6 +38,5 @@ public class LoginSteps {
     @Then("I should be redirected to the inventory page")
     public void iShouldBeRedirectedToTheInventoryPage() {
         assertEquals(telaAposLogin, driver.getCurrentUrl());
-        driver.quit();
     }
 }

@@ -1,13 +1,20 @@
 package steps;
 
+import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.InventoryPage;
 import pages.LoginPage;
+import io.cucumber.java.After;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class InventorySteps {
@@ -17,6 +24,14 @@ public class InventorySteps {
     InventoryPage inventoryPage;
     String telaAposLogin = "https://www.saucedemo.com/inventory.html";
     String telaDetalhesDoProduto = "https://www.saucedemo.com/inventory-item.html?id=4";
+    String telaDeLogin = "https://www.saucedemo.com/";
+
+    @After
+    public void teardown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
 
 
 
@@ -53,8 +68,31 @@ public class InventorySteps {
     @Then("I should redirected to the inventory page")
     public void iShouldRedirectedToTheInventoryPage() {
         assertEquals(telaAposLogin, driver.getCurrentUrl());
-        driver.quit();
 
+    }
+
+
+
+    @When("I click the menu button")
+    public void iClickTheMenuButton() {
+        inventoryPage.menu();
+    }
+
+    @And("I click the logout button")
+    public void iClickTheLogoutButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("logout_sidebar_link")));
+
+        // força o clique via JavaScript
+        org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
+        js.executeScript("document.getElementById('logout_sidebar_link').click()");
+    }
+    @Then("I should redirected to the login page")
+    public void iShouldBeRedirectedToTheLoginPage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlContains("inventory")));
+
+        assertEquals(telaDeLogin, driver.getCurrentUrl());
     }
 }
 
