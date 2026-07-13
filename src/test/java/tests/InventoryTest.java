@@ -33,6 +33,7 @@ public class InventoryTest {
     String telaDetalhesDoProduto = "https://www.saucedemo.com/inventory-item.html?id=4";
     String telaAposLogin = "https://www.saucedemo.com/inventory.html";
     String telaDeLogin = "https://www.saucedemo.com/";
+    String telaAbout = "https://saucelabs.com/";
 
 
     @BeforeEach
@@ -117,8 +118,20 @@ public class InventoryTest {
         wait.until(ExpectedConditions.urlContains("saucedemo.com"));
 
         assertEquals(telaDeLogin, driver.getCurrentUrl());
-
     }
+
+    @Test
+    public void aboutPage(){
+        inventoryPage.menu();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("about_sidebar_link")));
+
+        inventoryPage.about();
+        wait.until(ExpectedConditions.urlContains("https://saucelabs.com/"));
+
+        assertEquals(telaAbout, driver.getCurrentUrl());
+    }
+
 
 
 

@@ -25,6 +25,7 @@ public class InventorySteps {
     String telaAposLogin = "https://www.saucedemo.com/inventory.html";
     String telaDetalhesDoProduto = "https://www.saucedemo.com/inventory-item.html?id=4";
     String telaDeLogin = "https://www.saucedemo.com/";
+    String telaAbout = "https://saucelabs.com/";
 
     @After
     public void teardown() {
@@ -94,5 +95,24 @@ public class InventorySteps {
 
         assertEquals(telaDeLogin, driver.getCurrentUrl());
     }
+
+
+    @And("I click the about button")
+    public void iClickTheAboutButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("about_sidebar_link")));
+
+        // força o clique via JavaScript
+        org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
+        js.executeScript("document.getElementById('about_sidebar_link').click()");
+    }
+    @Then("I should redirected to the about page")
+    public void iShouldBeRedirectedToTheAboutPage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.not(ExpectedConditions.urlContains("inventory")));
+
+        assertEquals(telaAbout, driver.getCurrentUrl());
+    }
+
 }
 

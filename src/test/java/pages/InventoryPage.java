@@ -34,4 +34,7 @@ public class InventoryPage {
         driver.findElement(By.id("logout_sidebar_link")).click();
     }
 
+    public void about(){
+        driver.findElement(By.id("about_sidebar_link")).click();
+    }
 }
