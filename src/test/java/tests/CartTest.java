@@ -27,9 +27,11 @@ public class CartTest {
     String usuario = "standard_user";
     String senha = "secret_sauce";
     String telaCompraSucesso = "https://www.saucedemo.com/checkout-complete.html";
+    String telaInventoryPage = "https://www.saucedemo.com/inventory.html";
+    String telaItemPage = "https://www.saucedemo.com/inventory-item.html?id=4";
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com/");
         loginPage = new LoginPage(driver);
@@ -43,16 +45,16 @@ public class CartTest {
     }
 
     @AfterEach
-    public void teardown(){
+    public void teardown() {
         driver.quit();
     }
 
     @Test
-    public void checkout_fluxoCompleto_sucesso(){
+    public void checkout_fluxoCompleto_sucesso() {
         inventoryPage.adicionarAoCarrinho();
         cartPage.irParaCarrinho();
         cartPage.clicarCheckout();
-        checkoutPage.preencherFirtName("Lorenzo");
+        checkoutPage.preencherFirstName("Lorenzo");
         checkoutPage.preencherLastName("Luciano");
         checkoutPage.preencherZipCode("00000000");
         checkoutPage.clicarContinue();
@@ -62,8 +64,30 @@ public class CartTest {
         wait.until(ExpectedConditions.urlContains(telaCompraSucesso));
         String urlAtual = driver.getCurrentUrl();
 
-        assertEquals(telaCompraSucesso,urlAtual);
+        assertEquals(telaCompraSucesso, urlAtual);
     }
 
+    @Test
+    public void continueShopping() {
+        inventoryPage.adicionarAoCarrinho();
+        cartPage.irParaCarrinho();
+        cartPage.continueShopping();
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.urlContains(telaInventoryPage));
+        String urlAtual = driver.getCurrentUrl();
+        assertEquals(telaInventoryPage, urlAtual);
+    }
+
+    @Test
+    public void cartToItemPage() {
+        inventoryPage.adicionarAoCarrinho();
+        cartPage.irParaCarrinho();
+        cartPage.redirecionamentoItem();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.urlContains(telaItemPage));
+        String urlAtual = driver.getCurrentUrl();
+        assertEquals(telaItemPage, urlAtual);
+    }
 }

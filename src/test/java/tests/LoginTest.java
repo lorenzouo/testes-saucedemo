@@ -1,4 +1,5 @@
 package tests;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -26,18 +27,16 @@ public class LoginTest {
     String mensagemUsuarioSenhaNulos = "Epic sadface: Username is required";
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         driver = new ChromeDriver();
         driver.get("https://www.saucedemo.com/");
         loginPage = new LoginPage(driver);
     }
 
     @AfterEach
-    public void teardown(){
+    public void teardown() {
         driver.quit();
     }
-
-
 
     @Test
     public void login_credenciaisValidas_sucesso() throws InterruptedException {
@@ -52,7 +51,7 @@ public class LoginTest {
 
         String urlAtual = driver.getCurrentUrl();
 
-        assertEquals(telaAposLogin,urlAtual);
+        assertEquals(telaAposLogin, urlAtual);
     }
 
     @Test
@@ -134,6 +133,4 @@ public class LoginTest {
 
         assertEquals(mensagemUsuarioSenhaNulos, mensagemAtual);
     }
-
 }
-

@@ -10,18 +10,15 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    public void inserirUsuario(String usuario){
+    public void inserirUsuario(String usuario) {
         driver.findElement(By.id("user-name")).sendKeys(usuario);
     }
 
-    public void inserirSenha(String senha){
+    public void inserirSenha(String senha) {
         driver.findElement(By.id("password")).sendKeys(senha);
     }
 
-    public void clicarBotao(){
+    public void clicarBotao() {
         driver.findElement(By.id("login-button")).click();
     }
-
-
-
 }

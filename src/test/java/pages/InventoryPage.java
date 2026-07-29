@@ -10,31 +10,35 @@ public class InventoryPage {
         this.driver = driver;
     }
 
-    public void adicionarAoCarrinho(){
+    public void adicionarAoCarrinho() {
         driver.findElement(By.id("add-to-cart-sauce-labs-backpack")).click();
     }
 
-    public String obterQuantidadeCarrinho(){
+    public String obterQuantidadeCarrinho() {
         return driver.findElement(By.className("shopping_cart_badge")).getText();
     }
 
-    public void detalhesDoProduto(){
+    public void detalhesDoProduto() {
         driver.findElement(By.className("inventory_item_name")).click();
     }
 
-    public void voltarAoInventory(){
+    public void voltarAoInventory() {
         driver.findElement(By.id("back-to-products")).click();
     }
 
-    public void menu(){
+    public void menu() {
         driver.findElement(By.id("react-burger-menu-btn")).click();
     }
 
-    public void logout(){
+    public void logout() {
         driver.findElement(By.id("logout_sidebar_link")).click();
     }
 
-    public void about(){
+    public void about() {
         driver.findElement(By.id("about_sidebar_link")).click();
+    }
+
+    public void continueShopping() {
+        driver.findElement(By.id("continue-shopping")).click();
     }
 }

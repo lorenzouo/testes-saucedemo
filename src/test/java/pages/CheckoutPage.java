@@ -10,23 +10,23 @@ public class CheckoutPage {
         this.driver = driver;
     }
 
-    public void preencherFirtName(String firtName){
-        driver.findElement(By.id("first-name")).sendKeys(firtName);
+    public void preencherFirstName(String firstName) {
+        driver.findElement(By.id("first-name")).sendKeys(firstName);
     }
 
-    public void preencherLastName(String lastName){
+    public void preencherLastName(String lastName) {
         driver.findElement(By.id("last-name")).sendKeys(lastName);
     }
 
-    public void preencherZipCode(String zipCode){
+    public void preencherZipCode(String zipCode) {
         driver.findElement(By.id("postal-code")).sendKeys(zipCode);
     }
 
-    public void clicarContinue(){
+    public void clicarContinue() {
         driver.findElement(By.id("continue")).click();
     }
 
-    public void clicarFinish(){
+    public void clicarFinish() {
         driver.findElement(By.id("finish")).click();
     }
 }
